@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Store Finder Dashboard</title>
+    <meta
+      name="description"
+      content="A simple project using MongoDB, Express, and geocoding"
+    />
+
+    <link rel="stylesheet" href="./assets/style/index.css" />
+  </head>
+  <body>
+    <nav>
+      <h1>Store Finder</h1>
+      <ul>
+        <li>
+          <a href="./index.html">Find Stores</a>
+        </li>
+        <li>
+          <a href="./about.html">
+            About
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <form>
+        <div class="group">
+          <label for="store_id">Store ID</label>
+          <input type="text" name="store_id" />
+        </div>
+        <div class="group">
+          <label for="store_address">Store Address</label>
+          <input type="text" name="store_address" />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </main>
+
+    <footer>
+      <a href="https://JonoAugustine.com" target="_blank" rel="noopener noreferrer">
+        Made By JonoAugustine
+      </a>
+    </footer>
+
+    <script>
+      const createStore = async (storeID, address) => {
+        try {
+          const response = await fetch("/api/v1/stores", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ storeID, address })
+          });
+
+          if (response.status === 409) {
+            throw new Error("Duplicate Store ID");
+          } else if (response.status > 299) {
+            throw new Error("Internal Server Error");
+          }
+
+          alert("Store Added");
+        } catch (err) {
+          console.log("Failed", err);
+          return;
+        }
+      };
+
+      const form = document.querySelector("form");
+      const storeID = document.querySelector('[name="store_id"]');
+      const storeAddress = document.querySelector('[name="store_address"]');
+
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+        createStore(storeID.value, storeAddress.value);
+      });
+    </script>
+  </body>
+</html>

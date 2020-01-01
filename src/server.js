@@ -2,23 +2,32 @@ const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
 
-// Load ENV variables
-dotenv.config({ path: path.join(__dirname, "/config.env") });
+module.exports = async () => {
+  // Load ENV variables
+  dotenv.config({ path: path.join(__dirname, "/config.env") });
 
-const PORT = process.env.PORT || 7000;
+  // Initialize Server
 
-const server = express();
+  const PORT = process.env.PORT || 7000;
 
-server
-  // Use JSON body parser
-  .use(express.json())
-  // Use CORS
-  .use(require("cors")())
-  // Use store API router
-  .use("/api/v1/stores", require("./routes/stores"));
+  const server = express();
 
-server.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
+  server
+    // Use JSON body parser
+    .use(express.json())
+    // Use CORS
+    .use(require("cors")())
+    // Use store API router
+    .use("/api/v1/stores", require("./routes/stores"))
+    // Set static files
+    .use(express.static(path.join(__dirname, "public")));
 
-module.exports = server;
+  // Initialize DB connection
+
+  // Initialize DB
+  await require("./db/dao").db_connect();
+
+  server.listen(PORT, () => {
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  });
+};

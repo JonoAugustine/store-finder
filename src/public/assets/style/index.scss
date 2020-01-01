@@ -1,0 +1,126 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html {
+  --color-text: rgb(227, 244, 251);
+  --color-bg: rgb(17, 17, 17);
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-text);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background-color: rgb(19, 19, 19);
+
+  h1 {
+    margin: auto 0;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+      display: inline-block;
+
+      background-color: slategray;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      &:hover {
+        background-color: darkslategray;
+      }
+
+      a {
+        padding: 1rem;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+main {
+  width: 100%;
+  max-width: 80%;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: space-between;
+
+  .map-section {
+    width: 100%;
+    height: 30rem;
+    border-radius: 0.3rem;
+  }
+
+  form {
+    margin: auto;
+    .group {
+      margin: 0.5rem 0;
+      label {
+        display: block;
+      }
+      input {
+        display: block;
+        padding: 5px;
+        border-radius: 5px;
+        color: var(--color-text) !important;
+        background-color: transparent;
+        border: 1px solid white;
+      }
+    }
+
+    button[type="submit"] {
+      padding: 10px;
+      width: 100%;
+      margin: auto;
+      background-color: forestgreen;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      box-shadow: 0 0.2rem 0.3rem grey;
+      font-size: large;
+      font-weight: bold;
+    }
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: slategray;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
